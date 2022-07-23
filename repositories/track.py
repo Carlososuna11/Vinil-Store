@@ -21,11 +21,11 @@ class TrackRepository:
             track_id: int
     ) -> TrackSchema:
         track: TrackSchema = db.query(Track)\
-            .join(Track.Album)\
+            .join(Track.Album, isouter=True)\
             .options(joinedload(Track.Album))\
-            .join(Track.MediaType)\
+            .join(Track.MediaType, isouter=True)\
             .options(joinedload(Track.MediaType))\
-            .join(Track.Genre)\
+            .join(Track.Genre, isouter=True)\
             .options(joinedload(Track.Genre))\
             .filter(Track.TrackId == track_id)\
             .first()

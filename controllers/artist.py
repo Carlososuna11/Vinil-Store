@@ -31,7 +31,7 @@ router = APIRouter(
 
 
 @router.get(
-    "/",
+    "/singers/",
     response_model=List[ArtistNameSchema],
     status_code=status.HTTP_200_OK
 )
@@ -54,7 +54,7 @@ def get_all(
 
 
 @router.get(
-    "/{artist_id}",
+    "/singers/{artist_id}",
     response_model=List[AlbumTitleSchema],
     status_code=status.HTTP_200_OK
 )
@@ -83,8 +83,8 @@ def get_albums_by_artist(
 
 
 @router.get(
-    "/{artist_id}/tracks/",
-    response_model=List[TrackInfoSchema],
+    "/singer/{artist_id}/",
+    response_model=List[TrackSchema],
     status_code=status.HTTP_200_OK
 )
 def get_tracks_by_artist(

@@ -43,7 +43,7 @@ def get_application() -> FastAPI:
     # add the artist routes
     app.include_router(
         artist_router,
-        prefix="/music-store/api/v1/artists",
+        prefix="/music-store/api/v1",
     )
 
     # add the album routes
