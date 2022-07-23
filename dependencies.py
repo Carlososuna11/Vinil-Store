@@ -1,15 +1,14 @@
 from typing import Generator
 from sqlalchemy.orm import sessionmaker
 from config_db import SessionLocal
-from repositories.artist_repository import ArtistRepo
 
-
-def get_artist_repo():
-    return ArtistRepo()
 
 def get_db() -> Generator[sessionmaker, None, None]:
-    db = SessionLocal()
+    session: sessionmaker = SessionLocal()
     try:
-        yield db
+        yield session
+    except Exception:
+        session.rollback()
+        raise
     finally:
-        db.close()
+        session.close()

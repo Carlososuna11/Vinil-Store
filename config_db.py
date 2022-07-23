@@ -1,8 +1,5 @@
-from sqlalchemy import (
-    create_engine,
-    MetaData,
-)
-from sqlalchemy.ext.automap import automap_base
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # set the database connection string
@@ -20,11 +17,5 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-# produce our own MetaData object
-metadata = MetaData()
- 
-# reflect the tables
-metadata.reflect(engine)
-
-# we can then produce a set of mappings from this MetaData.
-Base = automap_base(metadata=metadata)
+# create a object of declarative base
+Base = declarative_base()

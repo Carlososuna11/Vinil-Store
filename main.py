@@ -1,7 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from config_db import Base
-from controllers.artist_routes import router as artist_router
+from config_db import (
+    Base,
+    engine
+)
+from controllers.artist import router as artist_router
+from controllers.album import router as album_router
+from controllers.track import router as track_router
 
 
 def get_application() -> FastAPI:
@@ -12,7 +17,7 @@ def get_application() -> FastAPI:
     """
 
     # automap the database tables
-    Base.prepare()
+    Base.metadata.create_all(bind=engine)
 
     # create a FastAPI application
     app = FastAPI(
@@ -39,6 +44,18 @@ def get_application() -> FastAPI:
     app.include_router(
         artist_router,
         prefix="/music-store/api/v1/artists",
+    )
+
+    # add the album routes
+    app.include_router(
+        album_router,
+        prefix="/music-store/api/v1/albums",
+    )
+
+    # add the track routes
+    app.include_router(
+        track_router,
+        prefix="/music-store/api/v1/song",
     )
 
     return app
