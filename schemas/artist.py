@@ -6,7 +6,9 @@ class ArtistSchema(BaseModel):
     """
     Artist Schema
     """
+
     ArtistId: int
+
     Name: Optional[str]
 
     class Config:

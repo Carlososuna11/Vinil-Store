@@ -6,13 +6,15 @@ from sqlalchemy import (
     Numeric,
     ForeignKey,
 )
-
 from sqlalchemy.orm import relationship
-
 from config_db import Base
 
 
 class Track(Base):
+    """
+    Track Model
+    """
+
     __tablename__ = 'tracks'
 
     TrackId = Column(

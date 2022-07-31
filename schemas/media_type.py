@@ -6,7 +6,9 @@ class MediaType(BaseModel):
     """
     MediaType Schema
     """
+
     MediaTypeId: int
+
     Name: Optional[str]
 
     class Config:

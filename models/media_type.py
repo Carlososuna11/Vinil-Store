@@ -5,11 +5,13 @@ from sqlalchemy import (
 )
 
 from sqlalchemy.orm import relationship
-
 from config_db import Base
 
 
 class MediaType(Base):
+    """
+    Media Type Model
+    """
 
     __tablename__ = 'media_types'
 

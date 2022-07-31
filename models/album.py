@@ -5,11 +5,14 @@ from sqlalchemy import (
     ForeignKey,
 )
 from sqlalchemy.orm import relationship
-
 from config_db import Base
 
 
 class Album(Base):
+    """
+    Album Model
+    """
+
     __tablename__ = 'albums'
 
     AlbumId = Column(

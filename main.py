@@ -16,7 +16,7 @@ def get_application() -> FastAPI:
     :return: FastAPI application
     """
 
-    # automap the database tables
+    # Link the database tables
     Base.metadata.create_all(bind=engine)
 
     # create a FastAPI application

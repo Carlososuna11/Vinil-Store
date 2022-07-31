@@ -22,12 +22,12 @@ router = APIRouter(
 
 
 @router.get(
-    "/{album_id}",
+    "/{album_id}/",
     response_model=List[TrackInfoSchema],
     status_code=status.HTTP_200_OK
 )
 # Depends Shortcut
-# see: https://fastapi.tiangolo.com/tutorial/dependencies/classes-as-dependencies/#shortcut
+# see: https://fastapi.tiangolo.com/tutorial/dependencies/classes-as-dependencies/#shortcut  # noqa: E501
 def get_tracks_by_album(
     album_id: int,
     db: Session = Depends(get_db),
@@ -38,15 +38,21 @@ def get_tracks_by_album(
     Get All Tracks by Album
 
     :param album_id: Album ID
+
     :param db: Database Session
+
     :param album_repository: Album Repository
+
     :param track_repository: Track Repository
 
     :return: List of tracks
     """
     try:
         album_repository.get_by_id(db, album_id)
-    except AlbumNotFoundError:
-        raise exceptions.NotFoundError(detail="Album not found")
+    except AlbumNotFoundError as e:
+        raise exceptions.HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e)
+        )
 
     return track_repository.get_by_album_id(db, album_id)

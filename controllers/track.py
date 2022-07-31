@@ -1,4 +1,3 @@
-from typing import List
 from fastapi import (
     APIRouter,
     Depends,
@@ -6,13 +5,10 @@ from fastapi import (
     exceptions
 )
 from sqlalchemy.orm import Session
-
 from dependencies import get_db
+
 from repositories.track import TrackRepository
-from schemas.track import (
-    TrackInfoSchema,
-    TrackSchema
-)
+from schemas.track import TrackSchema
 from exceptions.not_found import TrackNotFoundError
 
 router = APIRouter(
@@ -21,12 +17,12 @@ router = APIRouter(
 
 
 @router.get(
-    "/{track_id}",
+    "/{track_id}/",
     response_model=TrackSchema,
     status_code=status.HTTP_200_OK
 )
 # Depends Shortcut
-# see: https://fastapi.tiangolo.com/tutorial/dependencies/classes-as-dependencies/#shortcut
+# see: https://fastapi.tiangolo.com/tutorial/dependencies/classes-as-dependencies/#shortcut   # noqa: E501
 def get_track_by_id(
     track_id: int,
     db: Session = Depends(get_db),
@@ -36,13 +32,17 @@ def get_track_by_id(
     Get Track
 
     :param track_id: Track ID
+
     :param db: Database Session
+
     :param track_repository: Track Repository
 
     :return: Track
     """
     try:
-        track = track_repository.get_by_id(db, track_id)
+        return track_repository.get_by_id(db, track_id)
     except TrackNotFoundError as e:
-        raise exceptions.NotFoundError(e.detail)
-    return track
+        raise exceptions.HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e)
+        )

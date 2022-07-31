@@ -5,11 +5,13 @@ from sqlalchemy import (
 )
 
 from sqlalchemy.orm import relationship
-
 from config_db import Base
 
 
 class Genre(Base):
+    """
+    Genre Model
+    """
 
     __tablename__ = 'genres'
 

@@ -2,12 +2,12 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class GenderSchema(BaseModel):
+class GenreSchema(BaseModel):
     """
-    Gender Schema
+    Genre Schema
     """
 
-    GenderId: int
+    GenreId: int
 
     Name: Optional[str]
 
@@ -15,7 +15,7 @@ class GenderSchema(BaseModel):
         orm_mode = True
         schema_extra = {
             "example": {
-                "GenderId": 1,
+                "GenreId": 1,
                 "Name": "Jazz"
             }
         }

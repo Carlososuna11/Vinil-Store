@@ -5,11 +5,14 @@ from sqlalchemy import (
 )
 
 from sqlalchemy.orm import relationship
-
 from config_db import Base
 
 
 class Artist(Base):
+    """
+    Artist Model
+    """
+
     __tablename__ = 'artists'
 
     ArtistId = Column(
